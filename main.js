@@ -52,7 +52,6 @@ function playRound() {
         game.score.computer = game.score.computer + 1;
     } else throw new Error('Error determining winner of current round');
 
-
     // Present outcome to user
     console.table(game.score);
 }
