@@ -4,7 +4,19 @@ game = {
         player: 0,
         computer: 0
     },
-    roundsPlayed: 0
+    roundsPlayed: 0,
+    iterateRounds: function() {
+        this.roundsPlayed += 1;
+    },
+    showCurrentScore: function() {
+        console.table(this.score);
+    },
+    recordPlayerRoundWin: function() {
+        this.score.player += 1;
+    },
+    recordComputerRoundWin: function() {
+        this.score.computer +=1;
+    }
 }
 
 while (game.score.player < 3 && game.score.computer < 3) {
@@ -14,45 +26,44 @@ while (game.score.player < 3 && game.score.computer < 3) {
 console.log('Good game!');
 
 function playRound() {
-    // Take user input
-    let userInput = prompt('Enter your move (Rock, Paper, or Scissors');
-
-    // Validate user input
-    if (!userInput) {
-        console.log('Invalid user input');
+    // We hate have the variable declarations out here, but it is what it is
+    let humanMove;
+    let computerMove;
+    
+    // PlayerMove class will throw an error if you attempt to initiate with invalid input
+    try {
+        humanMove = new PlayerMove(getUserInput());
+        computerMove = new PlayerMove(generateRandomMove());
+    }
+    catch (err) {
+        console.log(err.message);
         return;
     }
+    
+    handleRoundOutcome(humanMove, computerMove);
+    game.showCurrentScore();
+}
 
-    // Format user input
-    let playerMove = userInput.slice(0,1).toUpperCase() + userInput.slice(1).toLowerCase();
+function getUserInput() {
+    return prompt('Enter your move (Rock, Paper, or Scissors');
+}
 
-    // Validate user input against valid choices
-    if (!Object.values(VALID_MOVES).includes(playerMove)) {
-        console.log('Invalid move by player');
-        return;
-    }
-
-    // Generate computer input
-    let computerMove = generateRandomMove();
-
-    // Iterate rounds played
-    game.roundsPlayed = game.roundsPlayed + 1;
+function handleRoundOutcome (playerMove, computerMove) {
+    game.iterateRounds();    
 
     // Give player summary of moves
-    console.log(`Round ${game.roundsPlayed}: Player selected ${playerMove}, Computer Selected ${computerMove}.`);
+    console.log(`Round ${game.roundsPlayed}: Player selected ${playerMove.displayValue}, Computer Selected ${computerMove.displayValue}.`);
 
     // Take acion based on current round outcome
-    if (playerMove === computerMove) {
+    if (playerMove.ties(computerMove)) {
         console.log('Tie!');
     } else if (playerMove.beats(computerMove)) {
         console.log('Player wins!');
-        game.score.player = game.score.player + 1;
+        game.recordPlayerRoundWin();
     } else if (computerMove.beats(playerMove)) {
         console.log('Computer Wins!');
-        game.score.computer = game.score.computer + 1;
-    } else throw new Error('Error determining winner of current round');
-
-    // Present outcome to user
-    console.table(game.score);
+        game.recordComputerRoundWin();
+    } else {
+        throw new Error('Error determining winner of current round');
+    }
 }
-
