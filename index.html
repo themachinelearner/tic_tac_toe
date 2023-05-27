@@ -11,15 +11,17 @@
     <script src="./PlayerMove.js" defer></script>
     <script src="./main.js" defer></script>
     <script src="./eventListeners.js" defer></script>
-    <div class="scoreDisplay"></div>
+    <div id="roundDisplay">Round: 1</div>
     <div class="buttonContainer">
-        <button id="paper">Paper</button>
-        <button id="rock">Rock</button>
-        <button id="scissors">Scissors</button>
+        <button class="playerSelectButton" id="paper">Paper</button>
+        <button class="playerSelectButton" data-sound="rock" id="rock">Rock</button>
+        <audio data-sound="rock" src="audio/rock.mp3"></audio>
+        <button class="playerSelectButton" id="scissors">Scissors</button>
     </div>
     <div class="scoreboard">
         <p id="playerScore">Player Score: 0</p>
         <p id="computerScore">Computer Score: 0</p>
     </div>
+    <div id="gamelog">Game Log:</div>
 </body>
 </html>
