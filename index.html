@@ -7,8 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="./helper.js"></script>
-    <script src="./PlayerMove.js"></script>
-    <script src="./main.js"></script>
+    <script src="./helper.js" defer></script>
+    <script src="./PlayerMove.js" defer></script>
+    <script src="./main.js" defer></script>
+    <script src="./eventListeners.js" defer></script>
+    <div class="scoreDisplay"></div>
+    <div class="buttonContainer">
+        <button id="paper">Paper</button>
+        <button id="rock">Rock</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div class="scoreboard">
+        <p id="playerScore">Player Score: 0</p>
+        <p id="computerScore">Computer Score: 0</p>
+    </div>
 </body>
 </html>
