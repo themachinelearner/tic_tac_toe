@@ -31,9 +31,21 @@ const buttons = document.querySelectorAll('.playerSelectButton');
 
 buttons.forEach(button => {
     button.addEventListener('click', ele => {
-        const audioElement = document.querySelector(`audio[data-sound="${button.getAttribute('data-sound')}"]`)
-        audioElement.currentTime = 0;
-        audioElement.play();
+        const allButtons = document.querySelectorAll('.playerSelectButton');
+        allButtons.forEach(buttonInner => {
+            if (button !== buttonInner) {
+                buttonInner.classList.add('deselected');
+            }
+        });
+
+        button.classList.add('selected');
+
         playRound(button.textContent);
+    });
+
+    button.addEventListener('transitionend', () => {
+        if (button.classList.contains('deselected')) {
+            button.style.visibility = 'hidden';
+        }
     });
 });

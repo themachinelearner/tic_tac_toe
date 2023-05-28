@@ -1,0 +1,9 @@
+.playerSelectButton.deselected {
+    transform: scale(.1);
+    transition: transform 2s ease-in .2s;
+}
+
+.playerSelectButton.selected {
+    transform: scale(1.5);
+    transition: transform 2s ease-in-out .2s;
+}
